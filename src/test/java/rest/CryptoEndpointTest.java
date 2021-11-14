@@ -84,7 +84,7 @@ public class CryptoEndpointTest {
             em.persist(user);
             em.persist(admin);
             em.persist(both);
-            //System.out.println("Saved test data to database");
+            System.out.println("Saved test data to database");
             em.getTransaction().commit();
         } finally {
             em.close();
@@ -119,15 +119,15 @@ public class CryptoEndpointTest {
 
 
     @Test
-    public void testCryptoAllNoAuth() {
+    public void testCryptoAll() {
+        login("user", "test");
         given()
                 .contentType("application/json")
+                .accept(ContentType.JSON)
+                .header("x-access-token", securityToken)
                 .when()
                 .get("/crypto/all").then()
                 .statusCode(200)
                 .body("tickers.from", hasItems("BTC", "ETH", "DOGE", "LTC", "XRP"));
     }
-
-
-
 }
