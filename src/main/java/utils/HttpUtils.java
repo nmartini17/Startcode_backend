@@ -83,6 +83,13 @@ public class HttpUtils {
         JokeDTO JokeDTO = gson.fromJson(chuck, JokeDTO.class);
         return JokeDTO;
     }
+
+    public static YoMamaDTO fetchYoMama() throws IOException {
+        String mama = HttpUtils.fetchData("https://yomomma-api.herokuapp.com/jokes");
+        YoMamaDTO yoMamaDTO = gson.fromJson(mama, YoMamaDTO.class);
+        return yoMamaDTO;
+    }
+
     public static String fetchData(String _url) throws MalformedURLException, IOException{
         URL url = new URL(_url);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
